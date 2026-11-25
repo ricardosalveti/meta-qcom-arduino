@@ -49,7 +49,7 @@ jobs:
 
       - name: Run kas lock
         run: |
-          ${KAS_CONTAINER} lock ci/base.yml:ci/qcom-distro.yml
+          ${KAS_CONTAINER} lock ci/base.yml:ci/qcom-distro.yml:ci/qcom-distro-multimedia-demo-image.yml
 
       - name: Upload kas
         uses: actions/upload-artifact@v6
@@ -254,6 +254,28 @@ jobs:
             kernel:
                 type: secure-boot
                 dirname: "_secure-boot"
+                yamlfile: ""
+
+          # Also build the multimedia demo images, which add the Chromium
+          # browser from meta-browser
+          - machine: uno-q
+            distro:
+                name: qcom-distro-multimedia-demo-image
+                yamlfile: ':ci/qcom-distro-multimedia-demo-image.yml'
+                profile: weekly
+            kernel:
+                type: default
+                dirname: ""
+                yamlfile: ""
+
+          - machine: ventuno-q
+            distro:
+                name: qcom-distro-multimedia-demo-image
+                yamlfile: ':ci/qcom-distro-multimedia-demo-image.yml'
+                profile: weekly
+            kernel:
+                type: default
+                dirname: ""
                 yamlfile: ""
     uses: qualcomm-linux/meta-qcom/.github/workflows/compile.yml@master
     with:
