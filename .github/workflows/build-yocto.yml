@@ -243,6 +243,18 @@ jobs:
                 type: qcom-next-rt
                 dirname: "_linux-qcom-next-rt"
                 yamlfile: ":ci/linux-qcom-next-rt.yml"
+
+          # Also build nodistro with the boot firmware signed by the secure
+          # boot test keys, to validate the build-time firmware signing
+          - machine: ventuno-q
+            distro:
+                name: nodistro
+                yamlfile: ':ci/secure-boot.yml:ci/ecdsa-secure-boot-test-keys.yml'
+                profile: weekly
+            kernel:
+                type: secure-boot
+                dirname: "_secure-boot"
+                yamlfile: ""
     uses: qualcomm-linux/meta-qcom/.github/workflows/compile.yml@master
     with:
       name: ${{ matrix.machine }}/${{ matrix.distro.name }}${{ matrix.kernel.dirname }}
