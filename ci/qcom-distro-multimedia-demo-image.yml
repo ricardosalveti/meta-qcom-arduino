@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/siemens/kas/master/kas/schema-kas.json
+
+# The multimedia demo images of meta-qcom-distro, which add the Chromium
+# browser from meta-browser. This fragment is not included from
+# meta-qcom-distro, as the one there pulls its own ci/qcom-distro.yml, which
+# clashes with the meta-qcom fragment used by this layer.
+
+header:
+  version: 14
+  includes:
+    - ci/qcom-distro.yml
+
+repos:
+  meta-browser:
+    url: https://github.com/OSSystems/meta-browser
+    branch: master
+    layers:
+      meta-chromium:
+
+target:
+  - qcom-multimedia-demo-image
+  - qcom-multimedia-demo-proprietary-image
